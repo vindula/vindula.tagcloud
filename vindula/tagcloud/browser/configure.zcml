@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="vindula.tagcloud">
+	
+  <!-- Views -->  
+  <browser:page
+     name="vindula-tagcloud"
+     for="*"
+     template="templates/tagcloud.pt"
+     class=".tagcloud.TagCloud"
+     permission="zope2.View"
+	 allowed_attributes="subjects
+	 					 getTags"
+     />
+
+  <!-- Directories --> 	
+  <browser:resourceDirectory
+      name="vindula.tagcloud.templates"
+      directory="templates"
+      />
+	  
+</configure>

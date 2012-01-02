@@ -1,0 +1,18 @@
+<div class="TagCloud">
+<tal:block
+    define="kwargs kwargs|python:{};"
+    repeat="item python:view.subjects(**kwargs)">
+  <tal:block define="subject python:item[0];
+                     size python:item[1];
+                     link python:item[2]">
+    <a href="#" class="TagCloudItem" style="#" 
+        tal:attributes="style string: font-size:${size}%; 
+                        href link;"
+        tal:content="subject">
+      TAGCLOUD
+    </a>
+
+  </tal:block>
+
+  </tal:block>
+</div>

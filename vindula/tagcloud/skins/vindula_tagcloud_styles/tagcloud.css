@@ -1,0 +1,9 @@
+
+.TagCloudItem {
+    text-decoration: none;
+    margin: 0 0.1em;
+}
+
+.TagCloudItem:hover {
+    color: black;
+}

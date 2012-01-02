@@ -1,0 +1,3 @@
+<dl metal:define-macro="portlet" class="portlet portletBlogFiles">
+	<div metal:use-macro="context/vindula_macro_blogfiles/macros/blogfiles"></div>
+</dl>

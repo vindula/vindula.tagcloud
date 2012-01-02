@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+	xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="vindula.tagcloud">
+	
+
+	<!--Portlet Tag Could -->
+    <plone:portlet
+       name="vindula.blog.PortletTagCloud"
+       interface=".portlet_tagcloud.ITagCloudPortlet"
+       assignment=".portlet_tagcloud.Assignment"
+       view_permission="zope2.View"
+       edit_permission="cmf.ManagePortal"
+       renderer=".portlet_tagcloud.Renderer"
+       addview=".portlet_tagcloud.AddForm"
+       editview=".portlet_tagcloud.EditForm"
+       />
+
+</configure>

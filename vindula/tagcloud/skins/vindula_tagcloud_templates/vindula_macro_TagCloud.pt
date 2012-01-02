@@ -1,0 +1,45 @@
+<metal:macro metal:define-macro="tagCloud">
+	
+	<dt class="portletHeader" id="cycle-blogfiles">
+		<span tal:content="view_portlet/get_title|nothing">Titulo Portlet</span>
+	</dt>
+	<dd class="portletItem" tal:define="view_tag python:context.restrictedTraverse('@@vindula-tagcloud')">
+		<tal:block define="kwargs kwargs|python:{};"
+    				repeat="item python:view_tag.subjects(**kwargs)">
+  			<tal:block define="subject python:item[0];
+            			       size python:item[1];
+                     		   link python:item[2]">
+    				<a href="#" class="TagCloudItem" style="#" 
+        						tal:attributes="style string: font-size:${size}%; 
+                        						href link;"
+        						tal:content="subject">TAGCLOUD</a>
+
+  			</tal:block>
+
+  		</tal:block>
+		<p>----------------------------------------</p>
+		
+		<tal:def define="results python:view_tag.getTags(view_portlet);">
+	        <!--tal:items tal:repeat="obj results">
+	            <a href="#" rel="nofollow" tal:attributes="href obj/href; title obj/count">
+	                <span tal:attributes="class obj/class;" tal:content="structure obj/text">Tag</span>
+	            </a>
+	        </tal:items-->
+			<tal:block repeat="item results">
+  				<tal:block define="subject python:item[0];
+            			       size python:item[1];
+                     		   link python:item[2]">
+    				<a href="#" class="TagCloudItem" style="#" 
+        						tal:attributes="style string: font-size:${size}%; 
+                        						href link;"
+        						tal:content="subject">TAGCLOUD</a>
+
+  				</tal:block>
+			</tal:block>
+			
+			
+		</tal:def>
+				
+	</dd>
+
+</metal:macro>
