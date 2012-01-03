@@ -11,68 +11,16 @@ class TagCloud(BrowserView):
     def calcTagSize(self, number, total, min, max):
         return int( (float(number)*float(max-min))/float(total) + min )
 
-    def subjects(self, minsize=100, maxsize=300):
-        pc = getToolByName(self.context, 'portal_catalog')
-        #results = pc(self.context.buildQuery())
-        results = pc()
-        #total = len(results)
-        total = 0
-        d = {}
-        for result in results:
-            if result.Subject:
-                subjects = result.Subject
-                total = total + 1
-                for subject in subjects:
-                    d[subject] = d.get(subject,0) + 1
-        l = [ (x,self.calcTagSize(d[x],total, min=minsize, max=maxsize),'search?Subject%3Alist=' + x ) for x in d.keys() ]
-        return l
     
-    
-   
-
     def getTags(self, portlet):
         portlet_data = portlet
         portal_url = getToolByName(self.context, 'portal_url')()
         tagOccs = self.getTagOccurrences(portlet)
         # If count has been set sort by occurences and keep the "count" first
         
-#        if portlet_data.count:
-#            sortedOccs = sorted(tagOccs.items(),
-#                                key=itemgetter(1),
-#                                reverse=True)[:portlet_data.count]
-#            tagOccs = dict(sortedOccs)
-
-#        thresholds = self.getThresholds(tagOccs.values())
-#        tags = list(tagOccs.keys())
-#        tags.sort()
-#        res = []
-#        for tag in tags:
-#            d = {}
-#            size = self.getTagSize(tagOccs[tag], thresholds)
-#            if size == 0:
-#                continue
-#            d["text"] = tag
-#            d["class"] = "cloud" + str(size)
-#            href= portal_url + \
-#                "/search?Subject%3Alist="+url_quote(tag)
-#            #Add type restrictions to search link
-#            href = href+ "".join(["&portal_type%3Alist="+url_quote(ptype)
-#                for ptype in portlet_data.restrictTypes])
-#            #Add workflow restrictions to search link
-#            href = href+ "".join(["&review_state%3Alist="+url_quote(wstate)
-#                for wstate in portlet_data.wfStates])
-#            #Add path to search link
-#            href = href+"&path=%s"%getNavigationRoot(self.context)
-#            d["href"]=href
-#            d["count"] = translate(
-#                _(u'${count} items', mapping={'count': tagOccs[tag]}),
-#                context=self.request)
-#            res.append(d)
-#        return res
-
         total = 0
-        minsize=100
-        maxsize=300
+        minsize=16 #Tamanho Minino das palavas na nuvem
+        maxsize=30 #Tamanho Maximo das palavras na Nuvem
         d = {}
         for result in tagOccs.get('result',[]):
             if result.Subject:
@@ -80,8 +28,13 @@ class TagCloud(BrowserView):
                 total = total + 1
                 for subject in subjects:
                     d[subject] = d.get(subject,0) + 1
-        l = [ (x,self.calcTagSize(d[x],total, min=minsize, max=maxsize),'search?Subject%3Alist=' + x ) for x in d.keys() ]
-        return l
+        if portlet_data.pathSearch:
+            search_path = portlet_data.pathSearch
+        else:
+            search_path = 'search?Subject%3Alist='
+        L = [ (x,self.calcTagSize(d[x],total, min=minsize, max=maxsize),search_path + x ) for x in d.keys() ]
+        L.sort()
+        return L
 
     
 
@@ -95,6 +48,7 @@ class TagCloud(BrowserView):
         for filtertag in portlet_data.filterSubjects:
             if filtertag in result:
                 result.remove(filtertag)
+        #result.sort()
         return result
 
     def getSearchTypes(self, portlet):

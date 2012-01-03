@@ -42,9 +42,10 @@ class ITagCloudPortlet(IPortletDataProvider):
                        min = 0,
                        default = 0)
     
-    pathSearch = schema.TextLine(title=unicode("Busca de conteudo", 'utf-8'),
-                                  description=unicode("digite o link da pagina de busca para mais conteudo relacionado.", 'utf-8'),
-                                  required=True)
+    pathSearch = schema.TextLine(title=unicode("Mecanismo de Busca de conteúdo", 'utf-8'),
+                                  description=unicode("""Digite o link da pagina de busca mais o parâmetro necessário para esta busca \n
+                                                      ", caso o campo fique em branco o portlet utilizara o mecanismo padrão do plone""", 'utf-8'),
+                                  required=False)
     
     restrictSubjects = schema.List(required = False,
                                     title = _(u"Restringir por palavras-chaves"),
@@ -75,9 +76,6 @@ class ITagCloudPortlet(IPortletDataProvider):
             description = _(u"Que estados serão incluídos na busca."),
             value_type = schema.Choice(vocabulary =
                                        'plone.app.vocabularies.WorkflowStates'))
-    
-    
-    
 
 
 class Assignment(base.Assignment):
