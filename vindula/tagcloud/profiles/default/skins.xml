@@ -5,15 +5,15 @@
 	
  <object name="vindula_tagCloud_scripts"
     meta_type="Filesystem Directory View"
-    directory="vindula.blog:skins/vindula_tagcloud_scripts"/>	
+    directory="vindula.tagcloud:skins/vindula_tagcloud_scripts"/>	
 
  <object name="vindula_tagCloud_styles"
     meta_type="Filesystem Directory View"
-    directory="vindula.blog:skins/vindula_tagcloud_styles"/>	
+    directory="vindula.tagcloud:skins/vindula_tagcloud_styles"/>	
 	
  <object name="vindula_tagCloud_templates"
     meta_type="Filesystem Directory View"
-    directory="vindula.blog:skins/vindula_tagcloud_templates"/>	
+    directory="vindula.tagcloud:skins/vindula_tagcloud_templates"/>	
 
   <skin-path name="Caixa Blog" based-on="Plone Default">
 	 <layer name="vindula_tagCloud_scripts"
