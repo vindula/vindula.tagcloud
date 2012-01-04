@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<object name="portal_skins" allow_any="False" cookie_persistence="False" 
+		meta_type="Plone Skins Tool">
+	
+ <object name="vindula_tagCloud_scripts"
+    meta_type="Filesystem Directory View"
+    directory="vindula.blog:skins/vindula_tagcloud_scripts"/>	
+
+ <object name="vindula_tagCloud_styles"
+    meta_type="Filesystem Directory View"
+    directory="vindula.blog:skins/vindula_tagcloud_styles"/>	
+	
+ <object name="vindula_tagCloud_templates"
+    meta_type="Filesystem Directory View"
+    directory="vindula.blog:skins/vindula_tagcloud_templates"/>	
+
+  <skin-path name="Caixa Blog" based-on="Plone Default">
+	 <layer name="vindula_tagCloud_scripts"
+    	 insert-after="custom"/>	
+	  
+  	 <layer name="vindula_tagCloud_styles"
+     	insert-after="vindula_tagCloud_scripts"/>
+	 
+   	 <layer name="vindula_tagCloud_templates"
+    	 insert-after="vindula_tagCloud_styles"/>				 
+	 
+ </skin-path>
+
+</object>
