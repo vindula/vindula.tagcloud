@@ -8,9 +8,14 @@ from Products.Five import BrowserView
 
 class TagCloud(BrowserView):
 
-    def calcTagSize(self, number, total, min, max):
-        return int( (float(number)*float(max-min))/float(total) + min )
-
+    def calcTagSize(self, number, total, font_sizes):
+        base_count = 100.0/len(font_sizes)
+        number = (number*100)/total
+        count = base_count
+        for size in font_sizes:
+            if number <= count:
+               return size
+            count += base_count
     
     def getTags(self, portlet):
         portlet_data = portlet
@@ -19,8 +24,7 @@ class TagCloud(BrowserView):
         # If count has been set sort by occurences and keep the "count" first
         
         total = 0
-        minsize=16 #Tamanho Minino das palavas na nuvem
-        maxsize=30 #Tamanho Maximo das palavras na Nuvem
+        sizes = [16,18,24,30]
         d = {}
         for result in tagOccs.get('result',[]):
             if result.Subject:
@@ -31,8 +35,10 @@ class TagCloud(BrowserView):
         if portlet_data.pathSearch:
             search_path = portlet_data.pathSearch
         else:
-            search_path = 'search?Subject%3Alist='
-        L = [ (x,self.calcTagSize(d[x],total, min=minsize, max=maxsize),search_path + x ) for x in d.keys() ]
+            search_path = 'blog-search?search-word=' 
+        if self.request.get('pdb'):
+            x = d
+        L = [ (tag_name,self.calcTagSize(d[tag_name],total, sizes),search_path + tag_name ) for tag_name in d.keys() ]
         L.sort()
         return L
 
@@ -68,7 +74,7 @@ class TagCloud(BrowserView):
         tagOccs = {}
         query = {}
         L = []
-        query['portal_type'] = types
+        query['portal_type'] = ['Post','Author']
         query['path'] = getNavigationRoot(self.context)
         if portlet_data.wfStates:
             query['review_state'] = portlet_data.wfStates
