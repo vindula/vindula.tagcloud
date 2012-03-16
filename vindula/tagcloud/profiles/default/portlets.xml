@@ -3,6 +3,13 @@
     	
 	<portlet addview="vindula.blog.PortletTagCloud"
 			 title="Portlet Nuvem de Tags"
-			 description="Listaga das palavras chaves do blog em formato de nunvem." />		
+			 description="Listaga das palavras chaves do blog em formato de nunvem." />
+    <assignment
+        category="content_type"
+        key="Blog"
+        manager="plone.rightcolumn"
+        name="Portlet Nuvem de Tags"
+        type="vindula.blog.PortletTagCloud"
+        insert-before="vindula.blog.PortletBlogFiles"/>
 
 </portlets>
