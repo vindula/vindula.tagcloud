@@ -8,6 +8,8 @@ from Products.Five import BrowserView
 
 class TagCloud(BrowserView):
 
+    #def calcTagSize(self, number, total, min, max):
+    #    return int( (float(number)*float(max-min))/float(total) + min )
     def calcTagSize(self, number, total, font_sizes):
         base_count = 100.0/len(font_sizes)
         number = (number*100)/total
@@ -25,6 +27,8 @@ class TagCloud(BrowserView):
         
         total = 0
         sizes = [16,18,24,30]
+        #minsize=16 #Tamanho Minino das palavas na nuvem
+        #maxsize=30 #Tamanho Maximo das palavras na Nuvem
         d = {}
         for result in tagOccs.get('result',[]):
             if result.Subject:
@@ -38,6 +42,7 @@ class TagCloud(BrowserView):
             search_path = 'blog-search?search-word=' 
         if self.request.get('pdb'):
             x = d
+        #L = [ (x,self.calcTagSize(d[x],total, min=minsize, max=maxsize),search_path + x ) for x in d.keys() ]
         L = [ (tag_name,self.calcTagSize(d[tag_name],total, sizes),search_path + tag_name ) for tag_name in d.keys() ]
         L.sort()
         return L
@@ -74,6 +79,7 @@ class TagCloud(BrowserView):
         tagOccs = {}
         query = {}
         L = []
+        #query['portal_type'] = types
         query['portal_type'] = ['Post','Author']
         query['path'] = getNavigationRoot(self.context)
         if portlet_data.wfStates:

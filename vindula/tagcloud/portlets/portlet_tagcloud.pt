@@ -1,5 +1,7 @@
-<dl metal:define-macro="portlet" class="portlet portletTagCloud">
-	<tal:def define="view_portlet view/data">
-		<div metal:use-macro="context/vindula_macro_TagCloud/macros/tagCloud"></div>	
-	</tal:def>
-</dl>
+<tal:naotemporario tal:condition="not:context/isTemporary">
+    <dl metal:define-macro="portlet" class="portlet portletTagCloud">
+        <tal:def define="view_portlet view/data">
+            <div metal:use-macro="context/vindula_macro_TagCloud/macros/tagCloud"></div>	
+        </tal:def>
+    </dl>
+</tal:naotemporario>

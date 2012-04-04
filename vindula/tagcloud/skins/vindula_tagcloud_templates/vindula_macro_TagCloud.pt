@@ -1,7 +1,7 @@
 <metal:macro metal:define-macro="tagCloud">
 	
 	<dt class="portletHeader" id="cycle-blogfiles">
-		<span tal:content="view_portlet/get_title|nothing">Titulo Portlet</span>
+		<span>ASSUNTOS</span>
 	</dt>
 	<dd class="portletItem" tal:define="view_tag python:context.restrictedTraverse('@@vindula-tagcloud')">
 		

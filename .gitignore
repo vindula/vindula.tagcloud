@@ -1,2 +1,7 @@
 # python bytecode
 *.pyc
+
+# Arquivos temporarios
+*.swp
+*.swo
+*~
